@@ -1,37 +1,37 @@
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
-import Products from './pages/Products';
-import Cart from './pages/Cart';
-import Details from './pages/Details';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import ErrorPage from './pages/ErrorPage';
-import Checkout from './pages/Checkout';
-import Orders from './pages/Orders';
-import Layout from './layout';
-import { createContext, useEffect, useState } from 'react';
+import { Routes, Route, useNavigate } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Products from "./pages/Products";
+import Cart from "./pages/Cart";
+import Details from "./pages/Details";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import ErrorPage from "./pages/ErrorPage";
+import Checkout from "./pages/Checkout";
+import Orders from "./pages/Orders";
+import Layout from "./layout";
+import { createContext, useEffect, useState } from "react";
 
 export const ThemeContext = createContext(null);
 
 function App() {
   const navigate = useNavigate();
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    if (localStorage.getItem('theme')) {
-      setTheme(localStorage.getItem('theme'))
+    if (localStorage.getItem("theme")) {
+      setTheme(localStorage.getItem("theme"));
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    document.querySelector('html').setAttribute('data-theme', theme);
-  }, [theme])
+    document.querySelector("html").setAttribute("data-theme", theme);
+  }, [theme]);
 
   function ProtectedRoute({
     children,
     isAuthentication,
-    redirectTo = '/login',
+    redirectTo = "/login",
   }) {
     if (!isAuthentication) {
       navigate(redirectTo);
@@ -45,7 +45,7 @@ function App() {
       <Routes>
         {/* public  */}
         <Route
-          path='/'
+          path="/"
           element={
             <Layout>
               <Home></Home>
@@ -53,7 +53,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/about'
+          path="/about"
           element={
             <Layout>
               <About></About>
@@ -61,7 +61,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/products'
+          path="/products"
           element={
             <Layout>
               <Products></Products>
@@ -69,7 +69,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/cart'
+          path="/cart"
           element={
             <Layout>
               <Cart></Cart>
@@ -77,20 +77,20 @@ function App() {
           }
         ></Route>
         <Route
-          path='/product/:id'
+          path="/product/:id"
           element={
             <Layout>
               <Details></Details>
             </Layout>
           }
         ></Route>
-        <Route path='/register' element={<Register></Register>}></Route>
-        <Route path='/login' element={<Login></Login>}></Route>
-        <Route path='*' element={<ErrorPage></ErrorPage>}></Route>
+        <Route path="/register" element={<Register></Register>}></Route>
+        <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="*" element={<ErrorPage></ErrorPage>}></Route>
 
         {/* protected */}
         <Route
-          path='/checkout'
+          path="/checkout"
           element={
             <ProtectedRoute isAuthentication={false}>
               <Layout>
@@ -101,7 +101,7 @@ function App() {
         ></Route>
 
         <Route
-          path='/orders'
+          path="/orders"
           element={
             <ProtectedRoute isAuthentication={false}>
               <Layout>
