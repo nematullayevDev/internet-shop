@@ -8,6 +8,7 @@ function Products() {
   const [price, setPrice] = useState(1000);
   const [shipping, setShipping] = useState(false);
   const [data, setData] = useState([]);
+  const [isGrid, setGrid] = useState(false);
   //
   const searchRef = useRef(null);
   const categoryRef = useRef(null);
@@ -169,20 +170,66 @@ function Products() {
       <div className=" card header border-b border-base-300 pb-5 pt-5 mt-5 flex justify-between items-end gap-3">
         <p>22 products</p>
         <div className="icon flex gap-4">
-          <span className="cursor-pointer">
-            <GrAppsRounded className="text-3xl"></GrAppsRounded>
+          <span
+            onClick={() => {
+              setGrid(true);
+            }}
+            className="cursor-pointer  flex justify-center items-center"
+            style={
+              isGrid
+                ? {
+                    color: "white",
+                    backgroundColor: "blue",
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                  }
+                : {}
+            }
+          >
+            <GrAppsRounded className="text-2xl"></GrAppsRounded>
           </span>
-          <span className="cursor-pointer">
+          <span
+            onClick={() => {
+              setGrid(false);
+            }}
+            className="cursor-pointer  flex justify-center items-center"
+            style={
+              !isGrid
+                ? {
+                    color: "white",
+                    backgroundColor: "blue",
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                  }
+                : {}
+            }
+          >
             <IoIosMenu className="text-3xl"></IoIosMenu>
           </span>
         </div>
       </div>
 
-      <div className="product flex gap-3 mb-20 flex-wrap mt-20">
+      <div
+        className={`product flex gap-3 mb-20 flex-wrap mt-20 ${
+          isGrid ? "flex-row" : "flex-col"
+        }`}
+      >
         {data.length > 0 &&
           data.map((el, index) => {
-            return <Card key={index} data={el}></Card>;
+            return <Card isGrid={isGrid} key={index} data={el}></Card>;
           })}
+      </div>
+
+      <div className="pagination mb-20 flex justify-end">
+        <div className="join">
+          <button className="join-item btn font-bold">PREV</button>
+          <button className="join-item btn btn-active">1</button>
+          <button className="join-item btn">2</button>
+          <button className="join-item btn">3</button>
+          <button className="join-item btn font-bold">NEXT</button>
+        </div>
       </div>
     </div>
   );

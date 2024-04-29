@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 function Card(props) {
   const { image, title, price } = props.data.attributes;
   const { id } = props.data;
+  const { isGrid } = props;
   const navigate = useNavigate();
 
   function handleRedirect() {
@@ -12,7 +13,9 @@ function Card(props) {
   return (
     <div
       onClick={handleRedirect}
-      className="card w-[295px] bg-base-100 shadow-xl cursor-pointer transition duration-300 hover:shadow-2xl"
+      className={`card ${
+        isGrid ? "w-[295px]" : "w-full"
+      } bg-base-100 shadow-xl cursor-pointer transition duration-300 hover:shadow-2xl`}
     >
       <figure className="px-5 pt-5">
         <img
